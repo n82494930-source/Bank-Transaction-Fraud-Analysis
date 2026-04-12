@@ -1,20 +1,87 @@
-<<<<<<< HEAD
-Welcome to your new dbt project!
+Bank Transaction Fraud Detection Pipeline and analysis
+(dbt + BigQuery)
 
-### Using the starter project
+Project Overview:
+This project builds an end-to-end fraud detection analytics and bank analysis pipeline using dbt and BigQuery.  
+It processes raw bank transaction data and applies business rules + statistical methods to identify suspicious transactions and customer behavior patterns and analysis.
+It also contains some sql files which are related to metric based analysis(likedevice based_analysis, location_based analysis etc) in the project.
 
-Try running the following commands:
-- dbt run
-- dbt test
+Data Pipeline Architecture
+
+1.Staging Layer (stg_transactions)
+  Raw data ingestion
+  Data cleaning and standardization
+  Type casting and basic transformations
+
+2.Intermediate Layer (int_transactions)
+This is the core transformation layer where analytics logic is applied:
+
+ Fraud Scoring Logic
+  High transaction amount ? risk points
+  Unusual transaction time (1 AM – 4 AM)
+  New device usage
+  Location mismatch (transaction vs city)
+
+ Analytical Features
+  Customer average transaction amount
+  Bank branch average account balance
+  Rolling average (3 transactions)
+  7-day rolling transaction trend
+  Z-score normalization for anomaly detection
+
+3.Data Mart Layer
+  Dimension tables:
+  - Customers
+  - Date
+  - Device
+  - Merchant
+  - Time
+  Fact table:
+  - Enriched transaction facts with fraud signals
+
+ Fraud Detection Logic
+
+  Fraud Score Classification
+    70+ ? HIGH RISK 
+    50–69 ? MEDIUM RISK 
+    < 50 ? LOW RISK 
+
+ Z-Score Anomaly Detection
+    ? 1 ? Normal behavior
+    1 – 2 ? Slightly unusual
+    2 – 3 ? Moderate risk
+    > 3 ? Highly suspicious
+    < -2 ? Unusual low spending pattern
 
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
-=======
-# Bank-Transaction-Fraud-Analysis
-This project focuses on analyzing bank transaction data using SQL Server (SSMS) to identify fraud patterns, high-risk transactions, and vulnerable customer behaviors. The goal is to generate data-driven insights that can help financial institutions improve fraud monitoring and decision making.
->>>>>>> 64dd56b9c21d9690b0f35bb4b99681e24183ab56
+Tech Stack
+- dbt (Data Build Tool)
+- Google BigQuery
+- SQL (Advanced window functions)
+- Git & GitHub
+
+Key Features
+- Incremental dbt models for performance optimization
+- Window functions for behavioral analytics
+- Rule-based + statistical fraud detection
+- Star schema design (Facts + Dimensions)
+- Modular dbt architecture
+
+---
+
+Outcome
+This project demonstrates a real-world fraud detection system and bank analysis used for:
+- Identifying suspicious transactions
+- Detecting abnormal customer behavior
+- Supporting financial risk analysis
+- Analysing transactions
+
+Project Structure
+models/
+??? 01_stage/
+??? 02_intermediate/
+??? 03_data_marts/
+macros/
+tests/
+seeds/
+snapshots/
