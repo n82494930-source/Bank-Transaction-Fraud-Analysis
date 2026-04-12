@@ -36,10 +36,11 @@ int_layer AS (
         ) AS rolling_avg_3_txn,
         AVG(transaction_amount) OVER (PARTITION BY customer_id
                                        ORDER BY transaction_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS rolling_avg_7days,
-
-        (transaction_amount - AVG(transaction_amount) OVER (PARTITION BY customer_id))
-        / NULLIF(STDDEV(transaction_amount) OVER (PARTITION BY customer_id),0)
-        AS amount_zscore
+        CASE 
+            WHEN COUNT(*) OVER (PARTITION BY customer_id) > 1 THEN
+            (transaction_amount - AVG(transaction_amount) OVER (PARTITION BY customer_id))
+            / NULLIF(STDDEV(transaction_amount) OVER (PARTITION BY customer_id), 0)  
+            ELSE 0 END AS amount_zscore
 
     FROM dedup
 )
