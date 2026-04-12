@@ -1,0 +1,9 @@
+version: 2
+sources:
+  - name: bank_data
+    database: test-project-dev-77
+    schema: bank_data
+    tables:
+      - name: banking_data
+      
+      
