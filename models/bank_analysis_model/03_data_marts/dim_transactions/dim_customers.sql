@@ -10,7 +10,7 @@ SELECT DISTINCT
     customer_contact,
     customer_email,
     account_type
-FROM {{ ref('stg_transactions') }}
+FROM {{ ref('int_transactions') }}
 ) 
 SELECT * 
 FROM customers

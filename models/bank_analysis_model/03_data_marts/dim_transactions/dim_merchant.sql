@@ -4,6 +4,6 @@ WITH merchant_table AS (
     SELECT DISTINCT
           merchant_id,
           merchant_category
-    FROM {{ ref('stg_transactions') }}      
+    FROM {{ ref('int_transactions') }}      
 )
 SELECT * FROM merchant_table

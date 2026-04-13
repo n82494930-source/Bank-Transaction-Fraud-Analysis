@@ -15,7 +15,7 @@ SELECT DISTINCT
         ELSE 'NIGHT'
     END AS time_of_day
 
-FROM {{ ref('stg_transactions') }}
+FROM {{ ref('int_transactions') }}
 )
 
 SELECT * 

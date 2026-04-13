@@ -9,7 +9,7 @@ SELECT DISTINCT
     EXTRACT(YEAR FROM transaction_date) AS year,
     EXTRACT(QUARTER FROM transaction_date) AS quarter,
     EXTRACT(DAYOFWEEK FROM transaction_date) AS day_of_week
-FROM {{ ref('stg_transactions') }}
+FROM {{ ref('int_transactions') }}
 )
 
 SELECT *
